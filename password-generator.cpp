@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 using namespace std;
 
 string read(string value) {
@@ -38,25 +39,25 @@ string read(string value) {
     return output;
 }
 
-char randomupper() {
+char randupper() {
     char uppercase[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
     int i = rand() % 26;
     return uppercase[i];
 }
 
-char randomlower() {
+char randlower() {
     char lowercase[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
     int i = rand() % 26;
     return lowercase[i];
 }
 
-char randomspecial() {
+char randspecial() {
     char special[7] = { '!', '#', '$', '%', '&', '*', '?' };
     int i = rand() % 7;
     return special[i];
 }
 
-char randomnumbers() {
+char randnumbers() {
     char numbers[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
     int i = rand() % 10;
     return numbers[i];
@@ -64,18 +65,18 @@ char randomnumbers() {
 
 void generate() {
     string output = "";
-    int i1, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0;
+    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0;
     digits = stoi(read("digits"));
     if (read("include_upper_case") == "true") {
-        upper = rand() % (digits / 2);
+        upper = rand() % (digits / 2) + 1;
         digits -= upper;
     }
     if (read("include_lower_case") == "true") {
-        lower = rand() % (digits / 2);
+        lower = rand() % (digits / 2) + 1;
         digits -= lower;
     }
     if (read("include_special_characters") == "true") {
-        special = rand() % (digits / 2);
+        special = rand() % (digits / 2) + 1;
         digits -= special;
     }
     if (read("include_numbers") == "true") {
@@ -97,10 +98,10 @@ void generate() {
         }
     }
     for (int i = 0; i < stoi(read("digits")); i++) {
-        i1 = rand() % 3;
+        i1 = rand() % 4;
         if (i1 == 0) {
             if (upper > 0) {
-                output += randomupper();
+                output += randupper();
                 upper--;
             }
             else {
@@ -109,7 +110,7 @@ void generate() {
         }
         else if (i1 == 1) {
             if (lower > 0) {
-                output += randomlower();
+                output += randlower();
                 lower--;
             }
             else {
@@ -118,7 +119,7 @@ void generate() {
         }
         else if (i1 == 2) {
             if (special > 0) {
-                output += randomspecial();
+                output += randspecial();
                 special--;
             }
             else {
@@ -127,7 +128,7 @@ void generate() {
         }
         else if (i1 == 3) {
             if (numbers > 0) {
-                output += randomnumbers();
+                output += randnumbers();
                 numbers--;
             }
             else {
@@ -219,6 +220,7 @@ void init() {
 
 int main()
 {
+    srand(time(NULL));
     init();
     generate();
 }
