@@ -157,7 +157,7 @@ void generate() {
             }
         }
     }
-    cout << output << endl;
+    cout << output;
     toClipboard(output);
 }
 
