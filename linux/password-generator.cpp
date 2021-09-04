@@ -141,7 +141,7 @@ void generate() {
             }
         }
     }
-    cout << output;
+    cout << output << endl;
 }
 
 int findposition(string value) {
