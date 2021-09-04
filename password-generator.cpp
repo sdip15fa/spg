@@ -1,17 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdio.h>
 #include <cstdlib>
+#include <chrono>
 using namespace std;
 
 string read(string value) {
-    ifstream input;
+    ifstream input("pg_options.txt");
     int olength;
     string line = "", output = "";
     size_t pos;
     bool a = true;
     int i = 0;
-    input.open("pg_options.txt");
     if (!input.is_open()) {
         cout << "pg_options.txt missing.";
         return "error";
@@ -35,8 +36,12 @@ string read(string value) {
             }
         }
     }
-    input.close();
     return output;
+}
+
+bool checkint(string word) {
+    bool has_only_digits = (word.find_first_not_of("0123456789") == string::npos);
+    return has_only_digits;
 }
 
 char randupper() {
@@ -93,7 +98,7 @@ void generate() {
             special += digits;
         }
         else {
-            cout << "error generating, please check your options.";
+            cout << "error generating, please check your options.\n";
             return;
         }
     }
@@ -136,30 +141,36 @@ void generate() {
             }
         }
     }
-    cout << output;
+    cout << output << endl;
 }
 
 int findposition(string value) {
-    ifstream input;
-    string line, output = "";
-    size_t pos;
-    bool a = true;
-    int i = 0, position = 0;
-    input.open("pg_options.txt");
-    if (!input.is_open()) {
-        cout << "pg_options.txt missing.";
-        return 0;
+    if (value == "include_special_characters") {
+        return 1;
     }
-    while (getline(input, line)) {
-        pos = line.find(value);
-        if (pos == string::npos) {
-            position = i;
-            break;
-        }
-        i++;
+    else if (value == "include_upper_case") {
+        return 2;
     }
-    input.close();
-    return position;
+    else if (value == "include_lower_case") {
+        return 3;
+    }
+    else if (value == "include_numbers") {
+        return 4;
+    }
+    else if (value == "digits") {
+        return 5;
+    }
+}
+
+string convert(string b) {
+    string c = "";
+    if (b == "y") {
+        c = "true";
+    }
+    else if (b == "n") {
+        c = "false";
+    }
+    return c;
 }
 
 void modifyvalue(string value, string newvalue) {
@@ -170,24 +181,24 @@ void modifyvalue(string value, string newvalue) {
     newfile.open("pg_options_n.txt");
     oldfile.open("pg_options.txt");
     if (!oldfile.is_open()) {
-        cout << "pg_options.txt missing.";
+        cout << "pg_options.txt missing.\n";
         return;
     }
     else {
         while (getline(oldfile, line)) {
             if (i < findposition(value)) {
-                content += line;
+                content += line += "\n";
             }
             else {
                 break;
             }
             i++;
         }
+        i++;
         content += value + "=" + newvalue + "\n";
-        i = 0;
         while (getline(oldfile, line)) {
             if (i > findposition(value)) {
-                content += line;
+                content += line += "\n";
             }
             i++;
         }
@@ -200,7 +211,36 @@ void modifyvalue(string value, string newvalue) {
 }
 
 void options() {
-
+    string iu = "", il = "", is = "", in = "", digits = "a";
+    while (iu != "y" && iu != "n") {
+        cout << "Include uppercase characters? (y|n) " ;
+        cin >> iu;
+    }
+    while (il != "y" && il != "n") {
+        cout << "Include lowercase characters? (y|n) ";
+        cin >> il;
+    }
+    while (is != "y" && is != "n") {
+        cout << "Include special characters? (y|n) ";
+        cin >> is;
+    }
+    while (in != "y" && in != "n") {
+        cout << "Include numbers? (y|n) ";
+        cin >> in;
+    }
+    while (!checkint(digits)) {
+        cout << "How many digits? ";
+        cin >> digits;
+    }
+    iu = convert(iu);
+    il = convert(il);
+    is = convert(is);
+    in = convert(in);
+    modifyvalue("include_upper_case", iu);
+    modifyvalue("include_lower_case", il);
+    modifyvalue("include_special_characters", is);
+    modifyvalue("include_numbers", in);
+    modifyvalue("digits", digits);
 }
 
 void init() {
@@ -218,9 +258,31 @@ void init() {
     }
 }
 
+void core() {
+    string input;
+    using namespace std::chrono;
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
+    srand(time);
+    cout << "(g|o): ";
+    cin >> input;
+    if (input == "g") {
+        generate();
+        core();
+    }
+    else if (input == "o") {
+        options();
+        core();
+    }
+    else {
+        cout << "input error.\n";
+        core();
+    }
+}
+
 int main()
 {
-    srand(time(NULL));
+    cout << "g for generating passwords, o for options.\n";
     init();
-    generate();
+    core();
 }
