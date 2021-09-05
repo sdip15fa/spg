@@ -86,29 +86,29 @@ char randnumbers() {
 
 void generate() {
     string output = "";
-    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0;
+    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l = digits/1.5;
     digits = stoi(read("digits"));
     if (read("include_upper_case") == "true") {
-        upper = rand() % (digits / 2) + 1;
+        upper = rand() % (digits / 3) + 1;
         digits -= upper;
     }
     if (read("include_lower_case") == "true") {
-        lower = rand() % (digits / 2) + 1;
+        lower = rand() % l + 1;
         digits -= lower;
     }
     if (read("include_special_characters") == "true") {
-        special = rand() % (digits / 2) + 1;
+        special = rand() % l + 1;
         digits -= special;
     }
     if (read("include_numbers") == "true") {
         numbers = digits;
     }
     else {
-        if (read("include_upper_case") == "true") {
-            upper += digits;
-        }
-        else if (read("include_lower_case") == "true") {
+        if (read("include_lower_case") == "true") {
             lower += digits;
+        }
+        else if (read("include_upper_case") == "true") {
+            upper += digits;
         }
         else if (read("include_special_characters") == "true") {
             special += digits;
