@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <stdio.h>
-#include <cstdlib>
 #include <chrono>
 using namespace std;
 
@@ -70,29 +69,32 @@ char randnumbers() {
 
 void generate() {
     string output = "";
-    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0;
+    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     if (read("include_upper_case") == "true") {
-        upper = rand() % (digits / 2) + 1;
+        l = digits / 2.5;
+        upper = rand() % l + 1;
         digits -= upper;
     }
     if (read("include_lower_case") == "true") {
-        lower = rand() % (digits / 2) + 1;
+        l = digits / 2;
+        lower = rand() % l + 1;
         digits -= lower;
     }
     if (read("include_special_characters") == "true") {
-        special = rand() % (digits / 2) + 1;
+        l = digits / 2;
+        special = rand() % l + 1;
         digits -= special;
     }
     if (read("include_numbers") == "true") {
         numbers = digits;
     }
     else {
-        if (read("include_upper_case") == "true") {
-            upper += digits;
-        }
-        else if (read("include_lower_case") == "true") {
+        if (read("include_lower_case") == "true") {
             lower += digits;
+        }
+        else if (read("include_upper_case") == "true") {
+            upper += digits;
         }
         else if (read("include_special_characters") == "true") {
             special += digits;
@@ -103,7 +105,7 @@ void generate() {
         }
     }
     for (int i = 0; i < stoi(read("digits")); i++) {
-        i1 = rand() % 4;
+        i1 = rand() % 5;
         if (i1 == 0) {
             if (upper > 0) {
                 output += randupper();
@@ -131,7 +133,7 @@ void generate() {
                 i--;
             }
         }
-        else if (i1 == 3) {
+        else if (i1 == 3 || i1 == 4) {
             if (numbers > 0) {
                 output += randnumbers();
                 numbers--;
