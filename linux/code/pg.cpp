@@ -146,7 +146,7 @@ void generate() {
     }
     cout << output << endl;
     CClipboardXX clipboard;
-    clipboard >> output;
+    clipboard << output;
 }
 
 int findposition(string value) {
