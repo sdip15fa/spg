@@ -3,6 +3,7 @@
 #include <string>
 #include <stdio.h>
 #include <chrono>
+#include "ClipboardXX/include/ClipboardXX.hpp"
 using namespace std;
 
 string read(string value) {
@@ -144,6 +145,8 @@ void generate() {
         }
     }
     cout << output << endl;
+    CClipboardXX clipboard;
+    clipboard >> output;
 }
 
 int findposition(string value) {
