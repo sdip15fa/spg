@@ -290,5 +290,4 @@ int main()
     cout << "g for generating passwords, o for options.\nPassword is copied to clipboard every time you generate.\n";
     init();
     core();
-
 }
