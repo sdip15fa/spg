@@ -146,8 +146,8 @@ void generate() {
     }
     cout << output << endl;
     try {
-        clipboard << output;
         CClipboardXX clipboard;
+        clipboard << output;
     }catch (CExceptionXX &e) {
         cout << "error copying to clipboard";
     }
