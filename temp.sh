@@ -1,1 +1,0 @@
-rm linux/build/Makefile linux/build/pg.cpp linux/build/pg.o linux/build/pg_options.txt linux/code/ClipboardXX/.gitignore linux/code/ClipboardXX/CMakeLists.txt linux/code/ClipboardXX/LICENSE linux/code/ClipboardXX/README.md linux/code/ClipboardXX/examples/copy.cpp linux/code/ClipboardXX/examples/paste.cpp linux/code/ClipboardXX/include/ClipboardXX.hpp linux/code/pg.cpp
