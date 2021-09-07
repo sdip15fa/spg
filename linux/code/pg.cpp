@@ -145,8 +145,12 @@ void generate() {
         }
     }
     cout << output << endl;
-    CClipboardXX clipboard;
-    clipboard << output;
+    try {
+        clipboard << output;
+        CClipboardXX clipboard;
+    }catch (CExceptionXX &e) {
+        cout << "error copying to clipboard";
+    }
 }
 
 int findposition(string value) {
