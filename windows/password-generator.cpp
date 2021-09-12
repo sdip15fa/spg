@@ -132,7 +132,9 @@ void generate() {
         i1 = simple_rand() % 5;
         if (i1 == 0) {
             if (upper > 0) {
-                output += randupper(simple_rand);
+                char r = randupper(simple_rand);
+                cout << r;
+                output += r;
                 upper--;
             }
             else {
@@ -141,7 +143,9 @@ void generate() {
         }
         else if (i1 == 1) {
             if (lower > 0) {
-                output += randlower(simple_rand);
+                char r = randlower(simple_rand);
+                cout << r;
+                output += r;
                 lower--;
             }
             else {
@@ -150,7 +154,9 @@ void generate() {
         }
         else if (i1 == 2) {
             if (special > 0) {
-                output += randspecial(simple_rand);
+                char r = randspecial(simple_rand);
+                cout << r;
+                output += r;
                 special--;
             }
             else {
@@ -159,7 +165,9 @@ void generate() {
         }
         else if (i1 == 3 || i1 == 4) {
             if (numbers > 0) {
-                output += randnumbers(simple_rand);
+                char r = randnumbers(simple_rand);
+                cout << r;
+                output += r;
                 numbers--;
             }
             else {
@@ -167,7 +175,7 @@ void generate() {
             }
         }
     }
-    cout << output << endl;
+    cout << endl;
     toClipboard(output);
 }
 

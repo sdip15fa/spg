@@ -3,4 +3,4 @@ include_special_characters=true
 include_upper_case=true
 include_lower_case=true
 include_numbers=true
-digits=10
+digits=99999
