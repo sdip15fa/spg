@@ -240,7 +240,7 @@ void modifyvalue(string value, string newvalue) {
 void options() {
     string iu = "", il = "", is = "", in = "", digits = "a";
     while (iu != "y" && iu != "n") {
-        cout << "Include uppercase characters? (y|n) " ;
+        cout << "Include uppercase characters? (y|n) ";
         cin >> iu;
     }
     while (il != "y" && il != "n") {
