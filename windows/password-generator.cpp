@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <stdio.h>
+#include <stdlib.h>
+#include <random>
 #include <chrono>
 #include <Windows.h>
 using namespace std;
@@ -59,47 +61,53 @@ bool checkint(string word) {
     return has_only_digits;
 }
 
-char randupper() {
+char randupper(std::minstd_rand simple_rand) {
     char uppercase[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-    int i = rand() % 26;
+    int i = simple_rand() % 26;
     return uppercase[i];
 }
 
-char randlower() {
+char randlower(std::minstd_rand simple_rand) {
     char lowercase[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-    int i = rand() % 26;
+    int i = simple_rand() % 26;
     return lowercase[i];
 }
 
-char randspecial() {
+char randspecial(std::minstd_rand simple_rand) {
     char special[7] = { '!', '#', '$', '%', '&', '*', '?' };
-    int i = rand() % 7;
+    int i = simple_rand() % 7;
     return special[i];
 }
 
-char randnumbers() {
+char randnumbers(std::minstd_rand simple_rand) {
     char numbers[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
-    int i = rand() % 10;
+    int i = simple_rand() % 10;
     return numbers[i];
 }
 
 void generate() {
+    minstd_rand simple_rand;
+    using namespace std::chrono;
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
+    using namespace std;
+    simple_rand.seed(time);
     string output = "";
     int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     if (read("include_upper_case") == "true") {
         l = digits / 2.5;
-        upper = rand() % l + 1;
+        upper = simple_rand() % l + 1;
         digits -= upper;
     }
     if (read("include_lower_case") == "true") {
         l = digits / 2;
-        lower = rand() % l + 1;
+        lower = simple_rand() % l + 1;
         digits -= lower;
     }
     if (read("include_special_characters") == "true") {
         l = digits / 2;
-        special = rand() % l + 1;
+        special = simple_rand() % l + 1;
         digits -= special;
     }
     if (read("include_numbers") == "true") {
@@ -121,10 +129,10 @@ void generate() {
         }
     }
     for (int i = 0; i < stoi(read("digits")); i++) {
-        i1 = rand() % 5;
+        i1 = simple_rand() % 5;
         if (i1 == 0) {
             if (upper > 0) {
-                output += randupper();
+                output += randupper(simple_rand);
                 upper--;
             }
             else {
@@ -133,7 +141,7 @@ void generate() {
         }
         else if (i1 == 1) {
             if (lower > 0) {
-                output += randlower();
+                output += randlower(simple_rand);
                 lower--;
             }
             else {
@@ -142,7 +150,7 @@ void generate() {
         }
         else if (i1 == 2) {
             if (special > 0) {
-                output += randspecial();
+                output += randspecial(simple_rand);
                 special--;
             }
             else {
@@ -151,7 +159,7 @@ void generate() {
         }
         else if (i1 == 3 || i1 == 4) {
             if (numbers > 0) {
-                output += randnumbers();
+                output += randnumbers(simple_rand);
                 numbers--;
             }
             else {
@@ -278,11 +286,7 @@ void init() {
 }
 
 void core() {
-    string input;
-    using namespace std::chrono;
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
-    int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
-    srand(time);
+    string input;    
     cout << "(g|o): ";
     cin >> input;
     if (input == "g") {
