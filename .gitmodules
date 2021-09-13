@@ -1,3 +1,6 @@
 [submodule "clip"]
 	path = clip
 	url = https://github.com/dacap/clip.git
+[submodule "linux/build/ClipboardX"]
+	path = linux/build/ClipboardX
+	url = https://github.com/Arian8j2/ClipboardXX
