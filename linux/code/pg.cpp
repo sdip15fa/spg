@@ -71,13 +71,13 @@ char randnumbers(minstd_rand simple_rand) {
 }
 
 void generate() {
-    string output = "";
     minstd_rand simple_rand;
     using namespace std::chrono;
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
     int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
     using namespace std;
     simple_rand.seed(time);
+    string output = "";
     int i1 = 0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     if (read("include_upper_case") == "true") {
@@ -117,7 +117,9 @@ void generate() {
         i1 = simple_rand() % 5;
         if (i1 == 0) {
             if (upper > 0) {
-                output += randupper(simple_rand);
+                char r = randupper(simple_rand);
+                cout << r;
+                output += r;
                 upper--;
             }
             else {
@@ -126,7 +128,9 @@ void generate() {
         }
         else if (i1 == 1) {
             if (lower > 0) {
-                output += randlower(simple_rand);
+                char r = randlower(simple_rand);
+                cout << r;
+                output += r;
                 lower--;
             }
             else {
@@ -135,7 +139,9 @@ void generate() {
         }
         else if (i1 == 2) {
             if (special > 0) {
-                output += randspecial(simple_rand);
+                char r = randspecial(simple_rand);
+                cout << r;
+                output += r;
                 special--;
             }
             else {
@@ -144,7 +150,9 @@ void generate() {
         }
         else if (i1 == 3 || i1 == 4) {
             if (numbers > 0) {
-                output += randnumbers(simple_rand);
+                char r = randnumbers(simple_rand);
+                cout << r;
+                output += r;
                 numbers--;
             }
             else {
@@ -152,7 +160,7 @@ void generate() {
             }
         }
     }
-    cout << output << endl;
+    cout << endl;
     try {
         CClipboardXX clipboard;
         clipboard << output;
