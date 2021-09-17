@@ -17,7 +17,7 @@ Sample runs: <br/>
 # Linux
 v1.1:
 ```
-wget 
+wget https://gitlab.com/wcyat/simple-password-generator/uploads/b8ed334717847ae9bdd056d4f4054060/simple-password-generator-v1.1.run
 ```
 ```
 ./simple-password-generator-v1.1.run
