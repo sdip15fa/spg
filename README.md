@@ -1,7 +1,7 @@
 Simple password generator. <br />
 Sample runs: <br/>
 
-![v1.0](https://github.com/wcyat/simple-password-generator/raw/master/simple-password-generator-v1.0.png)
+![v1.0](https://gitlab.com/wcyat/simple-password-generator/-/raw/master/simple-password-generator-v1.0.png)
 # Features
 - Copy to clipboard (windows only)
 # Options
@@ -13,11 +13,11 @@ Sample runs: <br/>
 - digits                   default = 10
 </pre>
 # Windows
-- download the [latest release](https://github.com/wcyat/simple-password-generator/releases/latest) (.exe)
+- download the [latest release](https://gitlab.com/wcyat/simple-password-generator/-/releases) (.exe)
 # Linux
 v1.1:
 ```
-wget https://github.com/wcyat/simple-password-generator/releases/download/v1.1/simple-password-generator-v1.1.run
+wget 
 ```
 ```
 ./simple-password-generator-v1.1.run
