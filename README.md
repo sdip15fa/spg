@@ -3,7 +3,7 @@ Sample runs: <br/>
 
 ![v1.0](https://gitlab.com/wcyat/simple-password-generator/-/raw/master/simple-password-generator-v1.0.png)
 # Features
-- Copy to clipboard (windows only)
+- Copy to clipboard
 # Options
 <pre>
 - upper case (y/n)         default = y
