@@ -18,7 +18,7 @@ build:
   #   - apt update && apt -y install make autoconf
   script:
     - apt update
-    - apt install qt5-qmake qt5-default build-essential sudo make
+    - apt install qt5-qmake qt5-default build-essential sudo make -y
     - cd linux/code
     - qmake -project
     - qmake
