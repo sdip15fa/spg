@@ -36,4 +36,6 @@ build:
 test:
   stage: test
   script:
-    - ./runmytests.sh
+    - ./mybinary
+    - g
+    - ^C
