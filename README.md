@@ -22,3 +22,34 @@ wget https://gitlab.com/wcyat/simple-password-generator/uploads/85bdc08b149b9f67
 ```
 ./simple-password-generator-v1.2.run
 ```
+
+# Build
+## Windows
+### Prerequisites
+- windows 10 or later
+- [visual studio](https://visualstudio.microsoft.com/downloads/) 2019 or later
+### Steps
+Clone/download the repository, open windows/password-generator.sln with visual studio, then build with release mode.
+## Linux
+### Prerequisites
+- debian linux
+- qmake and make installed:
+```
+sudo apt install qt5-qmake qt5-default build-essential make
+```
+### Steps
+```
+git clone https://gitlab.com/wcyat/simple-password-generator.git #clone the repository
+cd simple-password-generator/linux/build
+rm -r * #clear directory
+cp ../code/* . #copy files from code folder
+qmake -project
+qmake
+nano makefile #make sure pg.cpp is the only source and pg.o is the only object. remove other sources/objects
+make #compile
+mv build spg.run
+```
+Now you can run it.
+```
+./spg.run
+```
