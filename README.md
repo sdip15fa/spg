@@ -42,7 +42,7 @@ sudo apt install qt5-qmake qt5-default build-essential make
 git clone https://gitlab.com/wcyat/simple-password-generator.git #clone the repository
 cd simple-password-generator/linux/build
 rm -r * #clear directory
-cp ../code/* . #copy files from code folder
+cp -r ../code/* . #copy files from code folder
 qmake -project
 qmake
 nano makefile #make sure pg.cpp is the only source and pg.o is the only object. remove other sources/objects
