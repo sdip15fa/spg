@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = build1.0.0
-DISTDIR = /mnt/c/Users/johnniewong/OneDrive/Computer/source/repos/password-generator/linux/build/.tmp/build1.0.0
+DISTDIR = /mnt/c/Users/johnniewong/OneDrive/Computer/source/repos/simple-password-generator/linux/build/.tmp/build1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so /usr/lib/x86_64-linux-gnu/libGL.so -lpthread   
@@ -132,8 +132,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		build.pro ClipboardXX/include/ClipboardXX.hpp \
 		ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/foo.h pg.cpp \
 		ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.c \
-		ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.c \
-		ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+		ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdC/CMakeCCompilerId.c \
+		ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp
 QMAKE_TARGET  = build
 DESTDIR       = 
 TARGET        = build
@@ -314,7 +314,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ClipboardXX/include/ClipboardXX.hpp ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/foo.h $(DISTDIR)/
-	$(COPY_FILE) --parents pg.cpp ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.c ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.c ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents pg.cpp ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.c ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdC/CMakeCCompilerId.c ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -368,11 +368,11 @@ pg.o: pg.cpp ClipboardXX/include/ClipboardXX.hpp
 main.o: ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.c ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/foo.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o main.o ClipboardXX/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.c
 
-CMakeCCompilerId.o: ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.c 
-	$(CC) -c $(CFLAGS) $(INCPATH) -o CMakeCCompilerId.o ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.c
+CMakeCCompilerId.o: ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdC/CMakeCCompilerId.c 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o CMakeCCompilerId.o ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdC/CMakeCCompilerId.c
 
-CMakeCXXCompilerId.o: ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMakeCXXCompilerId.o ClipboardXX/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+CMakeCXXCompilerId.o: ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CMakeCXXCompilerId.o ClipboardXX/out/build/x64-Debug/CMakeFiles/3.21.21080301-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp
 
 ####### Install
 
