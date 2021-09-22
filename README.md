@@ -15,10 +15,10 @@ Sample runs: <br/>
 # Windows
 - download the [latest release](https://gitlab.com/wcyat/simple-password-generator/-/releases) (.exe)
 # Linux
-v1.1:
+v1.2:
 ```
-wget https://gitlab.com/wcyat/simple-password-generator/uploads/b8ed334717847ae9bdd056d4f4054060/simple-password-generator-v1.1.run
+wget https://gitlab.com/wcyat/simple-password-generator/uploads/85bdc08b149b9f679bf8e87e7c9c933f/simple-password-generator-v1.2.run
 ```
 ```
-./simple-password-generator-v1.1.run
+./simple-password-generator-v1.2.run
 ```
