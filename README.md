@@ -15,7 +15,7 @@ Sample runs: <br/>
 # Windows
 - download the [latest release](https://gitlab.com/wcyat/simple-password-generator/-/releases) (.exe)
 # Linux
-YOU NEED QT. OR, YOU CAN USE V1.0 INSTEAD.
+YOU NEED QT. OR, YOU CAN USE V1.0 INSTEAD. <br>
 v1.2:
 ```
 wget https://gitlab.com/wcyat/simple-password-generator/uploads/85bdc08b149b9f679bf8e87e7c9c933f/simple-password-generator-v1.2.run
