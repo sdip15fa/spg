@@ -45,7 +45,7 @@ rm -r * #clear directory
 cp -r ../code/* . #copy files from code folder
 qmake -project
 qmake
-nano makefile #make sure pg.cpp is the only source and pg.o is the only object. remove other sources/objects
+nano Makefile #make sure pg.cpp is the only source and pg.o is the only object. remove other sources/objects
 make #compile
 mv build spg.run
 ```
