@@ -2,10 +2,7 @@ Simple password generator. <br />
 Sample runs: <br/>
 
 ![v1.0](https://gitlab.com/wcyat/simple-password-generator/-/raw/master/simple-password-generator-v1.0.png)
-<video controls>
-  <source src="https://gitlab.com/wcyat/simple-password-generator/-/raw/master/v2.0_-_v1.2.mp4" type="video/mp4">
-  <source src="https://gitlab.com/wcyat/simple-password-generator/-/raw/master/v2.0_-_v1.2.webm" type="video/webm">
-</video>
+![link to video](https://gitlab.com/wcyat/simple-password-generator/-/raw/master/v2.0_-_v1.2.mp4) <br>
 Left: v2.0, Right: v1.2, both running on windows 11, with default configuration but 999999 digits.
 # Features
 - Copy to clipboard (windows)
