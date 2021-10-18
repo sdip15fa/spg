@@ -3,7 +3,7 @@ Sample runs: <br/>
 
 ![v1.0](https://gitlab.com/wcyat/simple-password-generator/-/raw/master/simple-password-generator-v1.0.png)
 # Features
-- Copy to clipboard
+- Copy to clipboard (windows)
 # Options
 <pre>
 - upper case (y/n)         default = y
@@ -15,13 +15,12 @@ Sample runs: <br/>
 # Windows
 - download the [latest release](https://gitlab.com/wcyat/simple-password-generator/-/releases) (.exe)
 # Linux
-YOU NEED QT. OR, YOU CAN USE V1.0 INSTEAD. <br>
-v1.2:
+v2.0:
 ```
-wget https://gitlab.com/wcyat/simple-password-generator/uploads/85bdc08b149b9f679bf8e87e7c9c933f/simple-password-generator-v1.2.run
+wget https://gitlab.com/wcyat/simple-password-generator/uploads/5453faa3cd46da2492a6fb1b1912ff2c/simple-password-generator-v2.0.run
 ```
 ```
-./simple-password-generator-v1.2.run
+./simple-password-generator-v2.0.run
 ```
 
 # Build
@@ -34,23 +33,27 @@ Clone/download the repository, open windows/password-generator.sln with visual s
 ## Linux
 ### Prerequisites
 - debian linux
-- qmake and make installed:
+- g++:
 ```
-sudo apt install qt5-qmake qt5-default build-essential make
+sudo apt install g++
+#sudo apt install build-essential
 ```
 ### Steps
 ```
 git clone https://gitlab.com/wcyat/simple-password-generator.git #clone the repository
-cd simple-password-generator/linux/build
-rm -r * #clear directory
-cp -r ../code/* . #copy files from code folder
-qmake -project
-qmake
-nano Makefile #make sure pg.cpp is the only source and pg.o is the only object. remove other sources/objects
-make #compile
-mv build spg.run
+cd simple-password-generator/linux
+g++ pg.cpp -o spg.run
 ```
 Now you can run it.
 ```
 ./spg.run
 ```
+#### Optional
+```
+sudo cp spg.run /bin/spg
+```
+Now you can run it with:
+```
+spg
+```
+in any directories
