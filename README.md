@@ -18,6 +18,7 @@ Sample runs: <br/>
 v2.0:
 ```
 wget https://gitlab.com/wcyat/simple-password-generator/uploads/5453faa3cd46da2492a6fb1b1912ff2c/simple-password-generator-v2.0.run
+chmod +x simple-password-generator-v2.0.run
 ```
 ```
 ./simple-password-generator-v2.0.run
