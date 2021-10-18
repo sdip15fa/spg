@@ -84,7 +84,7 @@ void generate() {
     string output = "";
     int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
-    int ld[4] = {2.5, 2, 2, 1};
+    double ld[4] = {2.5, 2, 2, 1};
     string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
     int amount[4] = { 0 };
     bool include[4] = { false };
