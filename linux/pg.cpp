@@ -65,7 +65,6 @@ void generate() {
     int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
     using namespace std;
     simple_rand.seed(time);
-    string output = "";
     int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     double ld[4] = {2.5, 2, 2, 1};
@@ -95,7 +94,6 @@ void generate() {
         char g[4] = {grand(simple_rand, uppercasec), grand(simple_rand, lowercasec),  grand(simple_rand, specialc), grand(simple_rand, numbersc)};
         if (amount[i1] != 0) {
             cout << g[i1];
-            output += g[i1];
             amount[i1]--;
         }
         else {
