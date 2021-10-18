@@ -7,7 +7,10 @@
 #include <chrono>
 #include <Windows.h>
 using namespace std;
-
+char uppercasec[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+char lowercasec[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+char specialc[7] = { '!', '#', '$', '%', '&', '*', '?' };
+char numbersc[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 void toClipboard(const std::string& s) {
     OpenClipboard(0);
     EmptyClipboard();
@@ -42,9 +45,7 @@ string read(string value) {
                     i++;
                     break;
                 }
-                else {
-                    i++;
-                }
+                i++;
             }
             olength = line.length() - value.length() - 1;
             for (int i2 = 0; i2 < olength; i2++) {
@@ -61,28 +62,16 @@ bool checkint(string word) {
     return has_only_digits;
 }
 
-char randupper(std::minstd_rand simple_rand) {
-    char uppercase[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-    int i = simple_rand() % 26;
-    return uppercase[i];
-}
-
-char randlower(std::minstd_rand simple_rand) {
-    char lowercase[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-    int i = simple_rand() % 26;
-    return lowercase[i];
-}
-
-char randspecial(std::minstd_rand simple_rand) {
-    char special[7] = { '!', '#', '$', '%', '&', '*', '?' };
-    int i = simple_rand() % 7;
-    return special[i];
-}
-
-char randnumbers(std::minstd_rand simple_rand) {
-    char numbers[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
-    int i = simple_rand() % 10;
-    return numbers[i];
+char grand(std::minstd_rand simple_rand, char x[]) {
+    int n = 0;
+    int p = x[n];
+    while(p != '\0')
+    {
+        n++;
+        p = x[n];
+    }
+    int i = simple_rand() % n;
+    return x[i];
 }
 
 void generate() {
@@ -95,84 +84,38 @@ void generate() {
     string output = "";
     int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
-    if (read("include_upper_case") == "true") {
-        l = digits / 2.5;
-        upper = simple_rand() % l + 1;
-        digits -= upper;
-    }
-    if (read("include_lower_case") == "true") {
-        l = digits / 2;
-        lower = simple_rand() % l + 1;
-        digits -= lower;
-    }
-    if (read("include_special_characters") == "true") {
-        l = digits / 2;
-        special = simple_rand() % l + 1;
-        digits -= special;
+    int ld[4] = {2.5, 2, 2, 1};
+    string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
+    int amount[4] = { 0 };
+    bool include[4] = { false };
+    for (int i = 0; i < 3; i++) {
+        if (read(readitems[i]) == "true") {
+            include[i] = true;
+            l = digits / ld[i];
+            amount[i] = simple_rand() % l + 1;
+            digits -= amount[i];
+        }
     }
     if (read("include_numbers") == "true") {
-        numbers = digits;
+        amount[3] = digits;
     }
     else {
-        if (read("include_lower_case") == "true") {
-            lower += digits;
-        }
-        else if (read("include_upper_case") == "true") {
-            upper += digits;
-        }
-        else if (read("include_special_characters") == "true") {
-            special += digits;
-        }
-        else {
-            cout << "error generating, please check your options.\n";
-            return;
+        for (int i = 0; i < 3; i++) {
+            if (include[i] == true) {
+                amount[i] += digits;
+            }
         }
     }
-    for (int i = 0; i < stoi(read("digits")); i++) {
-        i1 = simple_rand() % 5;
-        if (i1 == 0) {
-            if (upper > 0) {
-                char r = randupper(simple_rand);
-                cout << r;
-                output += r;
-                upper--;
-            }
-            else {
-                i--;
-            }
+    for (digits = stoi(read("digits")); digits > 0; digits--) {
+        i1 = simple_rand() % 4;
+        char g[4] = {grand(simple_rand, uppercasec), grand(simple_rand, lowercasec),  grand(simple_rand, specialc), grand(simple_rand, numbersc)};
+        if (amount[i1] != 0) {
+            cout << g[i1];
+            output += g[i1];
+            amount[i1]--;
         }
-        else if (i1 == 1) {
-            if (lower > 0) {
-                char r = randlower(simple_rand);
-                cout << r;
-                output += r;
-                lower--;
-            }
-            else {
-                i--;
-            }
-        }
-        else if (i1 == 2) {
-            if (special > 0) {
-                char r = randspecial(simple_rand);
-                cout << r;
-                output += r;
-                special--;
-            }
-            else {
-                i--;
-            }
-        }
-        else if (i1 == 3 || i1 == 4) {
-            if (numbers > 0) {
-                char r = randnumbers(simple_rand);
-                cout << r;
-                output += r;
-                numbers--;
-            }
-            else {
-                i--;
-            }
+        else {
+            digits++;
         }
     }
     cout << endl;
@@ -180,20 +123,15 @@ void generate() {
 }
 
 int findposition(string value) {
-    if (value == "include_special_characters") {
-        return 1;
-    }
-    else if (value == "include_upper_case") {
-        return 2;
-    }
-    else if (value == "include_lower_case") {
-        return 3;
-    }
-    else if (value == "include_numbers") {
-        return 4;
-    }
-    else if (value == "digits") {
-        return 5;
+    ifstream file("pg_options.txt");
+    int i = 0;
+    string line;
+    while (getline(file, line)) {
+        size_t found = line.find(value);
+        if (found != string::npos) {
+            return i;
+        }
+        i++;
     }
 }
 
