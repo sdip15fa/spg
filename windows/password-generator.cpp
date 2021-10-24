@@ -108,8 +108,8 @@ void generate() {
     }
     for (digits = stoi(read("digits")); digits > 0; digits--) {
         i1 = simple_rand() % 4;
-        char g[4] = {grand(simple_rand, uppercasec), grand(simple_rand, lowercasec),  grand(simple_rand, specialc), grand(simple_rand, numbersc)};
         if (amount[i1] != 0) {
+            char g[4] = { grand(simple_rand, uppercasec), grand(simple_rand, lowercasec),  grand(simple_rand, specialc), grand(simple_rand, numbersc) };
             cout << g[i1];
             output += g[i1];
             amount[i1]--;
