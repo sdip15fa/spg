@@ -1,7 +1,7 @@
 import wcyatfiles as files
 import os
 file = open("linux/pg.cpp")
-r = False;
+r = False
 for line in file:
   if "int main()" in line:
     r = True
