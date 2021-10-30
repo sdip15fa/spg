@@ -16,6 +16,7 @@ for line in file:
   else:
     if not "cout << endl" in line:
       files.appendfile("macos/pgtest.cpp", line)
+print("running script...")
 os.system("bash ./test-macos1.sh")
 testfile = open("macos/pgtest.txt")
 for line in testfile:
