@@ -1,6 +1,6 @@
 import wcyatfiles as files
 import os
-file = open("linux/pg.cpp")
+file = open("windows/password-generator.cpp")
 r = False
 for line in file:
   if "int main()" in line:
@@ -9,17 +9,17 @@ for line in file:
     if "cout" in line:
       continue
     if "core();" in line:
-      files.appendfile("linux/pgtest.cpp", line.replace("core", "generate"))
+      files.appendfile("windows/pgtest.cpp", line.replace("core", "generate"))
     else:
-      files.appendfile("linux/pgtest.cpp", line)
+      files.appendfile("windows/pgtest.cpp", line)
   else:
     if not "cout << endl" in line:
-      files.appendfile("linux/pgtest.cpp", line)
-os.system("chmod +x test-linux.sh && ./test-linux.sh")
-testfile = open("linux/pgtest.txt")
+      files.appendfile("windows/pgtest.cpp", line)
+os.system("chmod +x test-windows1.sh && ./test-windows1.sh")
+testfile = open("windows/pgtest.txt")
 for line in testfile:
   teststr = line
-os.system("cd linux && rm pgtest.cpp pgtest pgtest.txt pg_options.txt")
+os.system("cd windows && rm pgtest.cpp pgtest pgtest.txt pg_options.txt")
 special_characters = "!#$%&*?"
 testu = any(ele.isupper() for ele in teststr)
 testl = any(ele.islower() for ele in teststr)

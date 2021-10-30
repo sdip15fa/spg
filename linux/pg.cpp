@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <random>
 #include <chrono>
-#include <array>
 using namespace std;
 string read(string value) {
     ifstream input("pg_options.txt");
