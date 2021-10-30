@@ -17,7 +17,7 @@ for line in file:
     if not "cout << endl" in line:
       files.appendfile("macos/pgtest.cpp", line)
 print("running script...")
-os.system("bash ./test-macos1.sh")
+os.system("chmod 755 test-macos1.sh && ./test-macos1.sh")
 testfile = open("macos/pgtest.txt")
 for line in testfile:
   teststr = line
@@ -34,4 +34,4 @@ if not(any(c in special_characters for c in teststr) and testu and testl and tes
   raise ValueError("Test failed")
 else:
   print("test succeeded")
-os.system("bash ./test-macos2.sh")
+os.system("chmod 755 test-macos2.sh && ./test-macos2.sh")
