@@ -15,7 +15,7 @@ for line in file:
   else:
     if not "cout << endl" in line:
       files.appendfile("windows/pgtest.cpp", line)
-os.system("chmod +x test-windows1.sh && ./test-windows1.sh")
+os.system("chmod +x test-windows1.sh && sh test-windows1.sh")
 testfile = open("windows/pgtest.txt")
 for line in testfile:
   teststr = line
