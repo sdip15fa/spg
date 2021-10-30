@@ -23,7 +23,7 @@ wget https://gitlab.com/wcyat/simple-password-generator/uploads/7fc54fa1b58223b2
 chmod +x simple-password-generator-v2.1.run
 ```
 ```
-./simple-password-generator-v2.1run
+./simple-password-generator-v2.1.run
 ```
 
 # Build
