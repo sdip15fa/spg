@@ -76,7 +76,7 @@ void generate() {
     for (int i = 0; i < 3; i++) {
         if (include[i]) {
             l = digits / ld[i];
-            if (!l < 1) {
+            if (!(l < 1)) {
                 addamount = simple_rand() % l;
                 amount[i] += addamount;
                 digits -= addamount;
