@@ -17,13 +17,13 @@ Left: v2.0, Right: v1.2, both running on windows 11, with default configuration 
 # Windows
 - download the [latest release](https://gitlab.com/wcyat/simple-password-generator/-/releases) (.exe)
 # Linux
-v2.0:
+v2.1:
 ```
-wget https://gitlab.com/wcyat/simple-password-generator/uploads/5453faa3cd46da2492a6fb1b1912ff2c/simple-password-generator-v2.0.run
-chmod +x simple-password-generator-v2.0.run
+wget https://gitlab.com/wcyat/simple-password-generator/uploads/61ec45fc5585d662f1ba624ea2df0d4b/simple-password-generator-v2.1.run
+chmod +x simple-password-generator-v2.1.run
 ```
 ```
-./simple-password-generator-v2.0.run
+./simple-password-generator-v2.1.run
 ```
 
 # Build
