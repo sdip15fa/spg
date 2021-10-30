@@ -1,3 +1,4 @@
+git checkout master
 cd windows
 g++ password-generator.cpp -o spg.exe
 cd ..
