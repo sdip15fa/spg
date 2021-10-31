@@ -1,10 +1,13 @@
 name: test on macos
 
-on: [push]
+on: 
+  push:
+  schedule:    
+    - cron: "*/30 * * * *"
 
 jobs:
   test-macos:
-    runs-on: macos-latest
+    runs-on: macos-11
     strategy:
       max-parallel: 5
 

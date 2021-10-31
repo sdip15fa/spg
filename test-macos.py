@@ -1,6 +1,6 @@
 import wcyatfiles as files
 import os
-os.system("rm -r macos && cp -r linux macos && cd macos && rm pg.run")
+os.system("rm -r macos && cp -r linux macos && cd macos && rm *.run")
 file = open("macos/pg.cpp")
 r = False
 for line in file:
