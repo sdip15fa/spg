@@ -1,6 +1,9 @@
 name: test on macos
 
-on: [push]
+on: 
+  push:
+  schedule:    
+    - cron: "*/30 * * * *"
 
 jobs:
   test-macos:
