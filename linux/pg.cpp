@@ -10,17 +10,15 @@ string read(string value) {
     ifstream input("pg_options.txt");
     int olength;
     string line = "", output = "";
-    size_t pos;
-    bool a = true;
     int i = 0;
     if (!input.is_open()) {
         cout << "pg_options.txt missing.";
         return "error";
     }
     while (getline(input, line)) {
-        pos = line.find(value);
+        size_t pos = line.find(value);
         if (pos != string::npos) {
-            while (a == true) {
+            while (true) {
                 if (line[i] == '=') {
                     i++;
                     break;
@@ -58,7 +56,7 @@ void generate() {
     int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
     using namespace std;
     simple_rand.seed(time);
-    int i1=0, digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
+    int digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     double ld[4] = {2.5, 2, 2, 1};
     string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
@@ -93,7 +91,7 @@ void generate() {
         }
     }
     for (digits = stoi(read("digits")); digits > 0; digits--) {
-        i1 = simple_rand() % 4;
+        int i1 = simple_rand() % 4;
         if (amount[i1] >= 1) {
             char g[4] = { grand(simple_rand, 26, uppercasec), grand(simple_rand, 26, lowercasec),  grand(simple_rand, 7, specialc), grand(simple_rand, 10, numbersc) };
             cout << g[i1];
@@ -135,7 +133,6 @@ void modifyvalue(string value, string newvalue) {
     ifstream oldfile;
     ofstream newfile;
     string line, content = "";
-    int i = 0;
     newfile.open("pg_options_n.txt");
     oldfile.open("pg_options.txt");
     if (!oldfile.is_open()) {
@@ -143,6 +140,7 @@ void modifyvalue(string value, string newvalue) {
         return;
     }
     else {
+        int i = 0;
         while (getline(oldfile, line)) {
             if (i < findposition(value)) {
                 content += line += "\n";
