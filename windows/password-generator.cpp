@@ -134,6 +134,7 @@ int findposition(string value) {
         }
         i++;
     }
+    return i;
 }
 
 string convert(string b) {
