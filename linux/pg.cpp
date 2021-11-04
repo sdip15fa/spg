@@ -119,12 +119,9 @@ int findposition(string value) {
 }
 
 string convert(string b) {
-    string c = "";
+    string c = "false";
     if (b == "y") {
         c = "true";
-    }
-    else if (b == "n") {
-        c = "false";
     }
     return c;
 }
@@ -167,60 +164,44 @@ void modifyvalue(string value, string newvalue) {
 }
 
 void options() {
-    string iu = "", il = "", is = "", in = "", digits = "a";
-    while (iu != "y" && iu != "n") {
-        cout << "Include uppercase characters? (y|n) ";
-        cin >> iu;
+    string options[5] = { "" };
+    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"};
+    const string values[5] = {"include_upper_case", "include_lower_case", "include_special_characters", "include_numbers", "digits"};
+    for (int i = 0; i < 4; i++) {
+        while (options[i] != "y" && options[i] != "n") {
+            cout << "Include" + out[i] + "? (y|n) ";
+            cin >> options[i];
+        }
     }
-    while (il != "y" && il != "n") {
-        cout << "Include lowercase characters? (y|n) ";
-        cin >> il;
-    }
-    while (is != "y" && is != "n") {
-        cout << "Include special characters? (y|n) ";
-        cin >> is;
-    }
-    while (in != "y" && in != "n") {
-        cout << "Include numbers? (y|n) ";
-        cin >> in;
-    }
-    while (!checkint(digits)) {
+    options[4] = "N";
+    while (!checkint(options[4])) {
         cout << "How many digits? ";
-        cin >> digits;
+        cin >> options[4];
     }
-    string items[4] = {iu, il, is, in};
     int count = 0;
     bool valid = true;
     for (int i = 0; i < 4; i++) {
-        if (items[i] == "y") {
+        if (options[i] == "y") {
             count += 1;
         }
     }
-    if (count > stoi(digits)) {
+    if (count > stoi(options[4]) || stoi(options[4]) < 1) {
         cout << "Configuration invalid.\n";
         valid = false;
     }
     if (valid) {
-        iu = convert(iu);
-        il = convert(il);
-        is = convert(is);
-        in = convert(in);
-        modifyvalue("include_upper_case", iu);
-        modifyvalue("include_lower_case", il);
-        modifyvalue("include_special_characters", is);
-        modifyvalue("include_numbers", in);
-        modifyvalue("digits", digits);
+        for (int i = 0; i < 4; i++) {
+            options[i] = convert(options[i]);
+            modifyvalue(values[i], options[i]);
+        }
+        modifyvalue(values[4], options[4]);
     }
 }
 
 void init() {
     ifstream file;
     file.open("pg_options.txt");
-    if (file.is_open()) {
-        file.close();
-        return;
-    }
-    else {
+    if (!file.is_open()) {
         ofstream fs;
         fs.open("pg_options.txt");
         fs << "#DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING\ninclude_special_characters=true\ninclude_upper_case=true\ninclude_lower_case=true\ninclude_numbers=true\ndigits=10";
