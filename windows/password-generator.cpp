@@ -129,7 +129,7 @@ int findposition(string value) {
     return i;
 }
 
-string convert(string b) {
+string convert(const string b) {
     string c = "false";
     if (b == "y") {
         c = "true";
@@ -137,7 +137,7 @@ string convert(string b) {
     return c;
 }
 
-void modifyvalue(string value, string newvalue) {
+void modifyvalue(const string value, const string newvalue) {
     ifstream oldfile;
     ofstream newfile;
     string line, content = "";
