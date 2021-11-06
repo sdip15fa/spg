@@ -46,21 +46,14 @@ char grand(std::minstd_rand simple_rand, int size, char x[]) {
 }
 
 void generate() {
-    char uppercasec[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-    char lowercasec[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-    char specialc[7] = { '!', '#', '$', '%', '&', '*', '?' };
-    char numbersc[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+    char uppercasec[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }, lowercasec[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' }, specialc[7] = { '!', '#', '$', '%', '&', '*', '?' }, numbersc[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
     minstd_rand simple_rand;
-    using namespace std::chrono;
-    high_resolution_clock::time_point t1 = high_resolution_clock::now();
-    int time = duration_cast<nanoseconds>(t1.time_since_epoch()).count();
-    using namespace std;
+    std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
+    int time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 };
     simple_rand.seed(time);
-    int digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l;
     digits = stoi(read("digits"));
     double ld[4] = {2.5, 2, 2, 1};
     string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
-    int amount[4] = { 0 };
     bool include[4] = { false };
     for (int i = 0; i < 4; i++) {
         if (read(readitems[i]) == "true") {
@@ -118,7 +111,7 @@ int findposition(string value) {
     return i;
 }
 
-string convert(string b) {
+string convert(const string b) {
     string c = "false";
     if (b == "y") {
         c = "true";
@@ -126,7 +119,7 @@ string convert(string b) {
     return c;
 }
 
-void modifyvalue(string value, string newvalue) {
+void modifyvalue(const string value, const string newvalue) {
     ifstream oldfile;
     ofstream newfile;
     string line, content = "";
@@ -138,14 +131,9 @@ void modifyvalue(string value, string newvalue) {
     }
     else {
         int i = 0;
-        while (getline(oldfile, line)) {
-            if (i < findposition(value)) {
-                content += line += "\n";
-            }
-            else {
-                break;
-            }
-            i++;
+        getline(oldfile, line);
+        for (i; i < findposition(value); i++, getline(oldfile, line)) {
+            content += line += "\n";
         }
         i++;
         content += value + "=" + newvalue + "\n";
@@ -165,8 +153,7 @@ void modifyvalue(string value, string newvalue) {
 
 void options() {
     string options[5] = { "" };
-    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"};
-    const string values[5] = {"include_upper_case", "include_lower_case", "include_special_characters", "include_numbers", "digits"};
+    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"}, values[5] = {"include_upper_case", "include_lower_case", "include_special_characters", "include_numbers", "digits"};
     for (int i = 0; i < 4; i++) {
         while (options[i] != "y" && options[i] != "n") {
             cout << "Include" + out[i] + "? (y|n) ";
@@ -179,7 +166,6 @@ void options() {
         cin >> options[4];
     }
     int count = 0;
-    bool valid = true;
     for (int i = 0; i < 4; i++) {
         if (options[i] == "y") {
             count += 1;
@@ -187,9 +173,8 @@ void options() {
     }
     if (count > stoi(options[4]) || stoi(options[4]) < 1) {
         cout << "Configuration invalid.\n";
-        valid = false;
     }
-    if (valid) {
+    else {
         for (int i = 0; i < 4; i++) {
             options[i] = convert(options[i]);
             modifyvalue(values[i], options[i]);
@@ -215,16 +200,14 @@ void core() {
     cin >> input;
     if (input == "g") {
         generate();
-        core();
     }
     else if (input == "o") {
         options();
-        core();
     }
     else {
         cout << "input error.\n";
-        core();
     }
+    core();
 }
 
 int main()
