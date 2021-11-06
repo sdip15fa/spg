@@ -68,7 +68,7 @@ void generate() {
     int time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 };
     simple_rand.seed(time);
     digits = stoi(read("digits"));
-    double ld[4] = {2.5, 2, 2, 1};
+    double ld[3] = {2, 1.5, 2};
     string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" }, output = "";
     bool include[4] = { false };
     for (int i = 0; i < 4; i++) {
