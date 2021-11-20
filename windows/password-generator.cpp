@@ -24,52 +24,40 @@ void toClipboard(const std::string& s) {
 
 string read(string value) {
     ifstream input("pg_options.txt");
-    int olength;
-    string line = "", output = "";
+    string line, output = "";
     int i = 0;
-    if (!input.is_open()) {
-        cout << "pg_options.txt missing.";
-        return "error";
-    }
-    while (getline(input, line)) {
-        size_t pos = line.find(value);
-        if (pos != string::npos) {
-            while (true) {
-                if (line[i] == '=') {
-                    i++;
-                    break;
+    if (input.is_open()) {
+        while (getline(input, line)) {
+            if (line.find(value) != string::npos) {
+                for (i; line[i] != '='; i++) {}
+                i++;
+                for (int i2 = 0; i2 < line.length() - value.length() - 1; i2++, i++) {
+                    output += line[i];
                 }
-                i++;
-            }
-            olength = line.length() - value.length() - 1;
-            for (int i2 = 0; i2 < olength; i2++) {
-                output += line[i];
-                i++;
             }
         }
+        return output;
     }
-    return output;
+    cout << "pg_options.txt missing.";
 }
 
 bool checkint(string word) {
-    bool has_only_digits = (word.find_first_not_of("0123456789") == string::npos);
-    return has_only_digits;
+    return word.find_first_not_of("0123456789") == string::npos;
 }
 
 char grand(std::minstd_rand simple_rand, int size, char x[]) {
-    int i = simple_rand() % size;
-    return x[i];
+    return x[simple_rand() % size];
 }
 
 void generate() {
     char uppercasec[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }, lowercasec[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' }, specialc[7] = { '!', '#', '$', '%', '&', '*', '?' }, numbersc[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
     minstd_rand simple_rand;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-    int time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 };
+    int addamount, time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 };
     simple_rand.seed(time);
     digits = stoi(read("digits"));
     double ld[3] = {2, 1.5, 2};
-    string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" }, output = "";
+    string output = "", readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
     bool include[4] = { false };
     for (int i = 0; i < 4; i++) {
         if (read(readitems[i]) == "true") {
@@ -78,11 +66,10 @@ void generate() {
             digits--;
         }
     }
-    int addamount;
     for (int i = 0; i < 3; i++) {
         if (include[i]) {
             l = digits / ld[i];
-            if (!(l < 1)) {
+            if (l >= 1) {
                 addamount = simple_rand() % l;
                 amount[i] += addamount;
                 digits -= addamount;
@@ -119,22 +106,12 @@ int findposition(string value) {
     ifstream file("pg_options.txt");
     int i = 0;
     string line;
-    while (getline(file, line)) {
-        size_t found = line.find(value);
-        if (found != string::npos) {
-            return i;
-        }
-        i++;
-    }
+    for (getline(file, line); line.find(value) == string::npos; getline(file, line), i++) {}
     return i;
 }
 
-string convert(const string b) {
-    string c = "false";
-    if (b == "y") {
-        c = "true";
-    }
-    return c;
+inline string convert(const string b) {
+    return b == "y" ? "true" : "false";
 }
 
 void modifyvalue(const string value, const string newvalue) {
@@ -145,12 +122,10 @@ void modifyvalue(const string value, const string newvalue) {
     oldfile.open("pg_options.txt");
     if (!oldfile.is_open()) {
         cout << "pg_options.txt missing.\n";
-        return;
     }
     else {
         int i = 0;
-        getline(oldfile, line);
-        for (i; i < findposition(value); i++, getline(oldfile, line)) {
+        for (getline(oldfile, line); i < findposition(value); i++, getline(oldfile, line)) {
             content += line += "\n";
         }
         i++;
