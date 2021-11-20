@@ -60,3 +60,18 @@ Now you can run it with:
 spg
 ```
 in any directories
+## MacOS
+### Prerequisites
+- xcode
+- git
+### Steps
+```
+git clone https://gitlab.com/wcyat/simple-password-generator.git #clone the repository
+cd simple-password-generator/macos
+g++ pg.cpp -o spg.run
+```
+Now you can run it.
+```
+chmod 755 spg.run
+./spg.run
+```
