@@ -138,14 +138,15 @@ void modifyvalue(const string value, const string newvalue) {
 }
 
 void options() {
-    string options[5] = { "N" };
-    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"}, values[5] = {"include_upper_case", "include_lower_case", "include_special_characters", "include_numbers", "digits"};
+    string options[5] = { "" };
+    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"}, values[5] = {"upper", "lower", "special", "numbers", "digits"};
     for (int i = 0; i < 4; i++) {
         while (options[i] != "y" && options[i] != "n") {
             cout << "Include" + out[i] + "? (y|n) ";
             cin >> options[i];
         }
     }
+    options[4] = "N";
     while (!checkint(options[4])) {
         cout << "How many digits? ";
         cin >> options[4];
@@ -159,6 +160,7 @@ void options() {
     }
     else {
         for (int i = 0; i < 5; i++) {
+            i < 4 ? include[items[i]] = options[i] == "y": digits = stoi(options[i]);
             modifyvalue(values[i], i < 4 ? convert(options[i]) : options[i]);
         }
     }
