@@ -3,7 +3,28 @@
 #include <string>
 #include <random>
 #include <chrono>
+#include <map>
+#include <unistd.h>
 using namespace std;
+
+map<string, bool> include;
+int digits;
+char o[26];
+string items[4] = { "upper", "lower", "special", "numbers" };
+
+void print(string text) {
+    cout << text;
+}
+
+char * lists(int x) {
+    int pos[5] = {0, 26, 52, 59, 69}; 
+    char lists[69] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '!', '#', '$', '%', '&', '*', '?', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
+    for (int i = 0; i < pos[x+1] - pos[x]; i++) {
+        o[i] = lists[pos[x] + i];
+    }
+    return o;
+}
+
 string read(string value) {
     ifstream input("pg_options.txt");
     string line, output = "";
@@ -32,51 +53,43 @@ char grand(std::minstd_rand simple_rand, int size, char x[]) {
 }
 
 void generate() {
-    char uppercasec[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }, lowercasec[26] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' }, specialc[7] = { '!', '#', '$', '%', '&', '*', '?' }, numbersc[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
     minstd_rand simple_rand;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-    int addamount, time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), digits = 0, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 };
+    int addamount, time = std::chrono::duration_cast<std::chrono::nanoseconds>(t1.time_since_epoch()).count(), d = digits, upper = 0, lower = 0, special = 0, numbers = 0, l, amount[4] = { 0 }, size[4] = {26, 26, 7, 10};
     simple_rand.seed(time);
-    digits = stoi(read("digits"));
     double ld[3] = {2, 1.5, 2};
-    string readitems[4] = { "include_upper_case", "include_lower_case", "include_special_characters", "include_numbers" };
-    bool include[4] = { false };
     for (int i = 0; i < 4; i++) {
-        if (read(readitems[i]) == "true") {
-            include[i] = true;
+        if (include[items[i]]) {
             amount[i] = 1;
-            digits--;
+            d--;
         }
     }
     for (int i = 0; i < 3; i++) {
-        if (include[i]) {
-            l = digits / ld[i];
+        if (include[items[i]]) {
+            l = d / ld[i];
             if (l >= 1) {
                 addamount = simple_rand() % l;
                 amount[i] += addamount;
-                digits -= addamount;
+                d -= addamount;
             }
         }
     }
-    if (include[3]) {
-        amount[3] += digits;
+    if (include[items[3]]) {
+        amount[3] += d;
     }
     else {
         for (int i = 0; i < 3; i++) {
-            if (include[i] == true) {
-                amount[i] += digits;
-            }
+            include[items[i]] ? amount[i] += d : sleep(0);
         }
     }
-    for (digits = stoi(read("digits")); digits > 0; digits--) {
+    for (int d = digits; d > 0; d--) {
         int i1 = simple_rand() % 4;
         if (amount[i1] >= 1) {
-            char g[4] = { grand(simple_rand, 26, uppercasec), grand(simple_rand, 26, lowercasec),  grand(simple_rand, 7, specialc), grand(simple_rand, 10, numbersc) };
-            cout << g[i1];
+            cout << grand(simple_rand, size[i1], lists(i1));
             amount[i1]--;
         }
         else {
-            digits++;
+            d++;
         }
     }
     cout << endl;
@@ -126,7 +139,7 @@ void modifyvalue(const string value, const string newvalue) {
 
 void options() {
     string options[5] = { "" };
-    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"}, values[5] = {"include_upper_case", "include_lower_case", "include_special_characters", "include_numbers", "digits"};
+    const string out[4] = {" uppercase characters", " lowercase characters", " special characters", " numbers"}, values[5] = {"upper", "lower", "special", "numbers", "digits"};
     for (int i = 0; i < 4; i++) {
         while (options[i] != "y" && options[i] != "n") {
             cout << "Include" + out[i] + "? (y|n) ";
@@ -140,46 +153,36 @@ void options() {
     }
     int count = 0;
     for (int i = 0; i < 4; i++) {
-        if (options[i] == "y") {
-            count += 1;
-        }
+        options[i] == "y" ? count++ : sleep(0);
     }
     if (count > stoi(options[4]) || stoi(options[4]) < 1) {
         cout << "Configuration invalid.\n";
     }
     else {
-        for (int i = 0; i < 4; i++) {
-            options[i] = convert(options[i]);
-            modifyvalue(values[i], options[i]);
+        for (int i = 0; i < 5; i++) {
+            i < 4 ? include[items[i]] = options[i] == "y": digits = stoi(options[i]);
+            modifyvalue(values[i], i < 4 ? convert(options[i]) : options[i]);
         }
-        modifyvalue(values[4], options[4]);
     }
 }
 
 void init() {
-    ifstream file;
-    file.open("pg_options.txt");
+    ifstream file("pg_options.txt");
     if (!file.is_open()) {
-        ofstream fs;
-        fs.open("pg_options.txt");
-        fs << "#DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING\ninclude_special_characters=true\ninclude_upper_case=true\ninclude_lower_case=true\ninclude_numbers=true\ndigits=10";
-        fs.close();
+        ofstream fs("pg_options.txt");
+        fs << "#DO NOT MODIFY UNLESS YOU KNOW WHAT YOU ARE DOING\nspecial=true\nupper=true\nlower=true\nnumbers=true\ndigits=10";
     }
+    for (int i = 0; i < 4; i++) {
+        include[items[i]] = read(items[i]) == "true";
+    }
+    digits = stoi(read("digits"));
 }
 
 void core() {
-    string input;    
+    string input;
     cout << "(g|o): ";
     cin >> input;
-    if (input == "g") {
-        generate();
-    }
-    else if (input == "o") {
-        options();
-    }
-    else {
-        cout << "input error.\n";
-    }
+    input == "g" ? generate() : input == "o" ? options() : print("Input error.\n");
     core();
 }
 
