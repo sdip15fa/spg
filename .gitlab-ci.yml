@@ -8,7 +8,7 @@ image: python:latest
 stages:
 - test
 - sast
-job:
+test:
   stage: test
   script:
     - python3 test-linux.py
